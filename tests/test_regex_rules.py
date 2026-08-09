@@ -42,6 +42,13 @@ def test_span_matches_matched_text():
     assert e.detector == "regex"
 
 
+def test_credit_card_span_excludes_trailing_separator():
+    text = "card 4539578763621486 should never leak"
+    card = [e for e in RegexDetector().detect(text) if e.type == EntityType.CREDIT_CARD][0]
+    assert card.text == "4539578763621486"
+    assert text[card.span.start:card.span.end] == card.text
+
+
 def test_types_filter_limits_detection():
     d = RegexDetector(types=[EntityType.EMAIL])
     found = {e.type for e in d.detect("a@b.com and 0612345678")}

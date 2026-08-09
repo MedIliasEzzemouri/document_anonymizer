@@ -27,7 +27,9 @@ PATTERNS: Dict[EntityType, "re.Pattern"] = {
     EntityType.CIN: re.compile(r"\b[A-Z]{1,2}\d{5,6}\b"),
     EntityType.PHONE: re.compile(r"(?:\+212|0)[5-7](?:[ .\-]?\d){8}\b"),
     EntityType.RIB: re.compile(r"\b\d{24}\b"),
-    EntityType.CREDIT_CARD: re.compile(r"\b(?:\d[ \-]?){13,19}\b"),
+    # First digit, then 12-18 more digits each preceded by an optional separator.
+    # Separators sit *between* digits only, so the match never eats a trailing space.
+    EntityType.CREDIT_CARD: re.compile(r"\b\d(?:[ \-]?\d){12,18}\b"),
 }
 
 # Types whose matches must pass an extra validator to count.
