@@ -71,7 +71,9 @@ interfaces, so new modalities (NER, OCR, faces) are additive.
 
 ## Status
 - [x] Slice 1 — detection core (regex, international) merged to `main`, 39 tests passing
-- [ ] Slice 2 — NER Path A (pre-trained) + PDF
+- [x] Slice 2a — NER Path A (pre-trained spaCy EN/FR) on text, merged to `main`
+- [ ] Slice 2b — native PDF read + coordinate-aware redaction
+- [ ] Slice 2c — Arabic NER (CAMeL) — install blocked on PyTorch download; code degrades gracefully
 - [ ] Slice 3 — OCR + faces
 - [ ] Slice 4 — Streamlit UI
 - [ ] Slice 5 — labeled dataset + baseline eval + polish
