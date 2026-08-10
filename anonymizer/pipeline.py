@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import List, Optional
 
 from anonymizer.entities import Entity, EntityType
+from anonymizer.detectors.base import Detector
 from anonymizer.detectors.regex_rules import RegexDetector
 from anonymizer.redactors.text_redactor import RedactionStyle, TextRedactor
 
@@ -28,8 +29,28 @@ def anonymize_text(
     text: str,
     types: Optional[List[EntityType]] = None,
     style: RedactionStyle = RedactionStyle.LABELED,
+    detectors: Optional[List[Detector]] = None,
 ) -> AnonymizationResult:
-    detected = RegexDetector(types=types).detect(text)
-    kept = resolve_overlaps(detected)
+    if detectors is None:
+        detectors = [RegexDetector(types=types)]
+    found: List[Entity] = []
+    for detector in detectors:
+        found.extend(detector.detect(text))
+    if types is not None:
+        allowed = set(types)
+        found = [e for e in found if e.type in allowed]
+    kept = resolve_overlaps(found)
     redacted, entities = TextRedactor(style).redact(text, kept)
     return AnonymizationResult(redacted_text=redacted, entities=entities)
+
+
+def build_detectors(
+    types: Optional[List[EntityType]] = None,
+    use_ner: bool = False,
+) -> List[Detector]:
+    detectors: List[Detector] = [RegexDetector(types=types)]
+    if use_ner:
+        from anonymizer.detectors import ner_engines
+        from anonymizer.detectors.ner_detector import NerDetector
+        detectors.append(NerDetector(ner_engines.default_engines()))
+    return detectors
