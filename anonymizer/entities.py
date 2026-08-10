@@ -14,6 +14,10 @@ class EntityType(str, Enum):
     SSN = "SSN"      # United States
     NINO = "NINO"    # United Kingdom
     DNI = "DNI"      # Spain (DNI and NIE)
+    # Named entities (from NER models)
+    PERSON = "PERSON"
+    ORG = "ORG"
+    LOC = "LOC"
 
 
 @dataclass(frozen=True)

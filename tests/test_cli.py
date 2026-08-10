@@ -31,6 +31,22 @@ def test_cli_types_filter(tmp_path):
     assert "a@b.com" not in text
 
 
+def test_cli_ner_flag_runs_without_models(tmp_path, monkeypatch):
+    # Force the NER path to use zero engines, so no model download is needed.
+    from anonymizer.detectors import ner_engines
+    monkeypatch.setattr(ner_engines, "default_engines", lambda: {})
+
+    src = tmp_path / "in.txt"
+    src.write_text("mail a@b.com", encoding="utf-8")
+    out = tmp_path / "out.txt"
+
+    code = main([str(src), "--ner", "--out", str(out)])
+
+    assert code == 0
+    # regex still redacts even with no NER engines available
+    assert out.read_text(encoding="utf-8") == "mail [EMAIL]"
+
+
 def test_cli_prints_to_stdout_when_no_out(tmp_path, capsys):
     src = tmp_path / "in.txt"
     src.write_text("mail a@b.com", encoding="utf-8")

@@ -5,7 +5,7 @@ from typing import List, Optional
 
 from anonymizer.audit import build_audit_log
 from anonymizer.entities import EntityType
-from anonymizer.pipeline import anonymize_text
+from anonymizer.pipeline import anonymize_text, build_detectors
 from anonymizer.redactors.text_redactor import RedactionStyle
 
 
@@ -20,6 +20,8 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--audit", default=None, help="write JSON audit log to this path")
     p.add_argument("--redact-audit", action="store_true",
                    help="store SHA-256 of originals in the audit log")
+    p.add_argument("--ner", action="store_true",
+                   help="also run name detection (spaCy/CAMeL); slower, loads models")
     return p
 
 
@@ -34,10 +36,12 @@ def main(argv: Optional[List[str]] = None) -> int:
     with open(args.input, "r", encoding="utf-8") as fh:
         text = fh.read()
 
+    parsed_types = _parse_types(args.types)
     result = anonymize_text(
         text,
-        types=_parse_types(args.types),
+        types=parsed_types,
         style=RedactionStyle(args.style),
+        detectors=build_detectors(types=parsed_types, use_ner=args.ner),
     )
 
     if args.out:

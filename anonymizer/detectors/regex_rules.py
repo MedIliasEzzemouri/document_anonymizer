@@ -54,7 +54,9 @@ class RegexDetector(Detector):
     def detect(self, text: str) -> List[Entity]:
         found: List[Entity] = []
         for etype in self.types:
-            pattern = PATTERNS[etype]
+            pattern = PATTERNS.get(etype)
+            if pattern is None:
+                continue  # not a regex-detectable type (e.g. a NER type) — skip
             validator = _VALIDATORS.get(etype)
             for m in pattern.finditer(text):
                 value = m.group()
