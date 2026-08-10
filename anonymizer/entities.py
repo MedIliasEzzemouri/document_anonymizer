@@ -6,10 +6,14 @@ from typing import Optional
 class EntityType(str, Enum):
     EMAIL = "EMAIL"
     PHONE = "PHONE"
-    CIN = "CIN"
-    RIB = "RIB"
     IBAN = "IBAN"
+    RIB = "RIB"
     CREDIT_CARD = "CREDIT_CARD"
+    # National ID numbers (one member per country format).
+    CIN = "CIN"      # Morocco
+    SSN = "SSN"      # United States
+    NINO = "NINO"    # United Kingdom
+    DNI = "DNI"      # Spain (DNI and NIE)
 
 
 @dataclass(frozen=True)
