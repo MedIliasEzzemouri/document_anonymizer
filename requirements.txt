@@ -1,3 +1,7 @@
 # Slice 1 has zero runtime dependencies (stdlib only).
 # Dev-only:
 pytest>=7.0
+
+# Slice 2a — pre-trained NER (models downloaded separately, see README)
+spacy>=3.7
+camel-tools
