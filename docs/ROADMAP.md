@@ -31,11 +31,13 @@ interfaces, so new modalities (NER, OCR, faces) are additive.
 - Audit log with `--redact-audit` hashing option. Stdlib only.
 - Spec: `docs/superpowers/specs/2026-08-08-anonymizer-core-slice-design.md`
 
-### Slice 2 — NER + native PDF
-- spaCy NER (FR + EN) for PERSON / ORG / LOC → new `NerDetector`, same interface.
+### Slice 2 — NER (Path A: pre-trained) + native PDF
+- **Path A — use a pre-trained model** (no training by us): spaCy NER (FR + EN) for
+  PERSON / ORG / LOC → new `NerDetector`, same `Entity` interface as the regex detector.
 - CAMeL-BERT for Arabic names.
 - PyMuPDF: extract native PDF text **with coordinates**; extend `Entity` with page + bbox.
 - Redact PDFs in place (true black boxes over spans). Adds first third-party deps.
+- Deliverable: name detection working end-to-end — this is the **baseline** to beat later.
 
 ### Slice 3 — OCR + faces
 - EasyOCR for scanned pages → text + word boxes feeding the same detectors.
@@ -46,10 +48,20 @@ interfaces, so new modalities (NER, OCR, faces) are additive.
 - Drag-and-drop a file; toggle entity types; choose redaction style; download the clean file.
 - Before/after preview. Thin UI layer over the existing library — no core logic in the app.
 
-### Slice 5 — Eval + polish
-- Small hand-labeled test set; per-language precision/recall table.
+### Slice 5 — Labeled dataset + eval + polish
+- Hand-label a small dataset (names marked per sentence). This same data serves **both**
+  evaluation now and fine-tuning in Slice 6.
+- Measure the Slice 2 **baseline**: per-language precision/recall table.
 - README with before/after screenshots, supported-entity table, two-command quickstart, demo GIF.
 - Sample documents (CV, medical form).
+
+### Slice 6 — NER (Path B: train our own)
+- **Path B — fine-tune our own model** on the Slice 5 labeled data (spaCy training config
+  or transformers fine-tuning), targeting weaknesses of the pre-trained model
+  (e.g. Moroccan names it has never seen).
+- Compare fine-tuned vs. baseline on the held-out test set; report the improvement.
+- Swap the winning model behind the same `NerDetector` interface — no pipeline changes.
+- **Depends on:** Slice 2 (baseline) + Slice 5 (labeled data). Cannot start before both.
 
 ## Cross-cutting principles
 - **Everything runs local. Zero API keys.**
@@ -58,6 +70,9 @@ interfaces, so new modalities (NER, OCR, faces) are additive.
 - **Privacy of the tool itself**: the audit log can hash originals; nothing leaves the machine.
 
 ## Status
-- [x] Slice 1 design spec approved
-- [ ] Slice 1 implementation
-- [ ] Slice 2 · [ ] Slice 3 · [ ] Slice 4 · [ ] Slice 5
+- [x] Slice 1 — detection core (regex, international) merged to `main`, 39 tests passing
+- [ ] Slice 2 — NER Path A (pre-trained) + PDF
+- [ ] Slice 3 — OCR + faces
+- [ ] Slice 4 — Streamlit UI
+- [ ] Slice 5 — labeled dataset + baseline eval + polish
+- [ ] Slice 6 — NER Path B (fine-tune our own), compare to baseline
