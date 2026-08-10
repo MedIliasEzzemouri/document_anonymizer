@@ -1,0 +1,55 @@
+% Document de test pour l'anonymiseur — Attestation d'assurance auto, Francais. DONNEES FICTIVES.
+\documentclass[11pt,a4paper]{article}
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setdefaultlanguage{french}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{7B241C}
+\usepackage{titlesec}
+\usepackage{array}
+\usepackage{tabularx}
+\titleformat{\section}{\large\bfseries\color{accent}}{}{0em}{}[\vspace{-0.5em}{\color{accent}\rule{\linewidth}{0.8pt}}]
+\titlespacing{\section}{0pt}{1em}{0.5em}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\renewcommand{\arraystretch}{1.3}
+
+\begin{document}
+
+{\Huge\bfseries\color{accent} AXA Assurances}\\[0.2em]
+{\normalsize Agence de Strasbourg — 14 avenue de la Liberté, 67000 Strasbourg, France}\\[0.8em]
+{\LARGE\bfseries Attestation d'Assurance Automobile}
+
+\section{Assuré}
+\begin{tabularx}{\linewidth}{@{}>{\bfseries}l X@{}}
+Nom et prénom & Karim Benmoussa \\
+Date de naissance & 11 septembre 1986 \\
+Adresse & 32 rue du Faubourg-National, 67000 Strasbourg \\
+Courriel & karim.benmoussa@laposte.net \\
+Téléphone & +33 6 82 47 15 93 \\
+Permis de conduire & N° 671986402 (délivré le 05/2006) \\
+\end{tabularx}
+
+\section{Contrat}
+\begin{tabularx}{\linewidth}{@{}>{\bfseries}l X >{\bfseries}l X@{}}
+N° de police & AUTO-2026-77341 & Formule & Tous risques \\
+Période & 01/08/2026 -- 31/07/2027 & Franchise & 350,00 € \\
+Prime annuelle & 842,00 € & Bonus/Malus & 0,55 \\
+\end{tabularx}
+
+\section{Véhicule assuré}
+\begin{tabularx}{\linewidth}{@{}>{\bfseries}l X >{\bfseries}l X@{}}
+Marque / Modèle & Peugeot 308 & Immatriculation & EF-472-KL \\
+N° de série (VIN) & VF3LBHYZTGS412876 & Énergie & Diesel \\
+\end{tabularx}
+
+\vspace{1em}
+La présente attestation certifie que le véhicule ci-dessus est garanti par le contrat
+mentionné pour la période indiquée.
+
+\vspace{1.2em}
+Fait à Strasbourg, le 1\textsuperscript{er} août 2026.\\
+Conseiller : M. Thomas Weber — thomas.weber@axa.fr \quad +33 3 88 21 44 60
+
+\end{document}

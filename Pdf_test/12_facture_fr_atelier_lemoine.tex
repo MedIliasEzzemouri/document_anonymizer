@@ -1,0 +1,61 @@
+% Document de test pour l'anonymiseur — Facture (freelance), Francais. DONNEES FICTIVES.
+\documentclass[11pt,a4paper]{article}
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setdefaultlanguage{french}
+\usepackage[margin=2cm]{geometry}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{4A235A}
+\definecolor{rowgray}{HTML}{F0EAF4}
+\usepackage{titlesec}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{colortbl}
+\titleformat{\section}{\large\bfseries\color{accent}}{}{0em}{}[\vspace{-0.5em}{\color{accent}\rule{\linewidth}{0.8pt}}]
+\titlespacing{\section}{0pt}{1em}{0.5em}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\renewcommand{\arraystretch}{1.35}
+
+\begin{document}
+
+{\Huge\bfseries\color{accent} Atelier Lemoine}\\[0.2em]
+{\normalsize Julien Lemoine — Designer graphique indépendant}\\
+25 rue de la République, 44000 Nantes, France\\
+julien.lemoine@atelier-lemoine.fr \quad +33 6 74 22 91 08\\
+SIRET : 821 447 902 00019 \quad TVA : FR76 821447902\\[0.8em]
+{\LARGE\bfseries Facture N° 2026-047}
+
+\section{Client}
+\begin{tabularx}{\linewidth}{@{}>{\bfseries}l X@{}}
+Nom & Mme Claire Dubois \\
+Société & Boulangerie Le Fournil (SARL) \\
+Adresse & 8 place du Marché, 44100 Nantes \\
+Courriel & claire.dubois@lefournil-nantes.fr \\
+Téléphone & +33 6 11 45 78 20 \\
+\end{tabularx}
+
+\vspace{0.5em}
+Date d'émission : 30 juillet 2026 \quad Échéance : 30 août 2026
+
+\section{Détail des prestations}
+\begin{tabularx}{\linewidth}{@{}X r r r@{}}
+\rowcolor{accent}\textcolor{white}{\textbf{Prestation}} & \textcolor{white}{\textbf{Qté}} & \textcolor{white}{\textbf{P.U. HT}} & \textcolor{white}{\textbf{Total HT}} \\
+Création de logo et charte graphique & 1 & 850,00 € & 850,00 € \\
+\rowcolor{rowgray} Conception de menus imprimés & 3 & 120,00 € & 360,00 € \\
+Bannières réseaux sociaux & 5 & 45,00 € & 225,00 € \\
+\end{tabularx}
+
+\vspace{0.5em}
+\hfill
+\begin{tabularx}{0.5\linewidth}{@{}X r@{}}
+Total HT & 1 435,00 € \\
+TVA (20\%) & 287,00 € \\
+\textbf{Total TTC} & \textbf{1 722,00 €} \\
+\end{tabularx}
+
+\section{Règlement}
+Par virement bancaire — IBAN : FR76 1620 6000 5089 7412 3654 021 \quad BIC : AGRIFRPP862\\
+Merci de rappeler le numéro de facture. Pénalités de retard : 3 fois le taux légal.
+
+\end{document}

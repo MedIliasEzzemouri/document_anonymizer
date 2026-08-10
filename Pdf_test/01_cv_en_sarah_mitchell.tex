@@ -1,0 +1,61 @@
+% Test document for anonymizer — CV, English. FICTITIOUS DATA.
+\documentclass[11pt,a4paper]{article}
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setdefaultlanguage{english}
+\usepackage[margin=2cm]{geometry}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{1F3A5F}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\hypersetup{hidelinks}
+\setlist{nosep,leftmargin=1.2em}
+\titleformat{\section}{\large\bfseries\color{accent}}{}{0em}{}[\vspace{-0.5em}{\color{accent}\rule{\linewidth}{0.8pt}}]
+\titlespacing{\section}{0pt}{1.1em}{0.5em}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+{\Huge\bfseries\color{accent} Sarah Mitchell}\\[0.3em]
+{\large Senior Software Engineer}\\[0.6em]
+\begin{tabularx}{\linewidth}{@{}lX@{}}
+Email: \href{mailto:sarah.mitchell@gmail.com}{sarah.mitchell@gmail.com} &
+Phone: +44 7700 900142 \\
+Address: 47 Elmwood Road, Islington, London N1 8QX, United Kingdom &
+Date of birth: 12 March 1989 \\
+Nationality: British \quad National Insurance No.: QQ~12~34~56~C &
+LinkedIn: linkedin.com/in/sarahmitchell89 \\
+\end{tabularx}
+
+\section{Professional Summary}
+Senior software engineer with 9+ years building scalable backend services in Python
+and Go. Passionate about clean architecture, mentoring, and reliable delivery.
+
+\section{Work Experience}
+\textbf{Lead Backend Engineer} — Fintech Solutions Ltd., London \hfill Jun 2020 -- Present
+\begin{itemize}
+  \item Led a team of 6 engineers migrating a monolith to microservices.
+  \item Reduced API latency by 40\% through query optimisation and caching.
+\end{itemize}
+\vspace{0.4em}
+\textbf{Software Engineer} — BrightData Systems, Manchester \hfill Sep 2016 -- May 2020
+\begin{itemize}
+  \item Designed and shipped a real-time analytics pipeline processing 2M events/day.
+\end{itemize}
+
+\section{Education}
+\textbf{BSc Computer Science}, University of Manchester \hfill 2011 -- 2015\\
+First Class Honours
+
+\section{Skills}
+Python, Go, PostgreSQL, Docker, Kubernetes, AWS, CI/CD, System Design
+
+\section{References}
+David O'Brien — Engineering Manager, Fintech Solutions Ltd.\\
+Email: david.obrien@fintechsolutions.co.uk \quad Phone: +44 7700 900311
+
+\end{document}

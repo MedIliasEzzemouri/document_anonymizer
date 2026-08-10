@@ -1,0 +1,55 @@
+% Test document for anonymizer — Utility (water/electricity) bill, Arabic. FICTITIOUS DATA.
+\documentclass[12pt,a4paper]{article}
+\usepackage{fontspec}
+\usepackage[margin=2cm]{geometry}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{0A6E4E}
+\usepackage{titlesec}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{polyglossia}   % loads bidi — must come AFTER color/titlesec
+\setmainlanguage{arabic}
+\setotherlanguage{english}
+\setmainfont{Amiri}
+\titleformat{\section}{\large\bfseries\color{accent}}{}{0em}{}[\vspace{-0.4em}{\color{accent}\rule{\linewidth}{0.8pt}}]
+\titlespacing{\section}{0pt}{1em}{0.5em}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\newcommand{\field}[2]{\textbf{#1:}\quad #2\\[0.3em]}
+\renewcommand{\arraystretch}{1.3}
+
+\begin{document}
+
+{\Huge\bfseries\color{accent} راديما}\\[0.2em]
+{\normalsize الوكالة المستقلة لتوزيع الماء والكهرباء بمراكش}\\[0.8em]
+{\LARGE\bfseries فاتورة الماء والكهرباء}
+
+\section{بيانات الزبون}
+\field{الاسم الكامل}{لمياء الإدريسي}
+\field{العنوان}{56 شارع علال الفاسي، حي المسيرة، مراكش}
+\field{البريد الإلكتروني}{\textenglish{lamiaa.idrissi@gmail.com}}
+\field{الهاتف}{\textenglish{+212 6 61 90 33 21}}
+\field{رقم الزبون}{\textenglish{RC-778120459}}
+\field{رقم العداد (كهرباء)}{\textenglish{E-4471209}}
+\field{رقم العداد (ماء)}{\textenglish{W-2098331}}
+\field{فترة الاستهلاك}{من 1 يونيو إلى 31 يوليوز 2026}
+
+\section{تفاصيل الاستهلاك}
+\begin{tabularx}{\linewidth}{@{}X r r r@{}}
+\textbf{الخدمة} & \textbf{الاستهلاك} & \textbf{الثمن للوحدة} & \textbf{المجموع}\\ \hline
+كهرباء & \textenglish{240 kWh} & \textenglish{1.10} & \textenglish{264.00} \\
+ماء & \textenglish{28 m³} & \textenglish{6.50} & \textenglish{182.00} \\
+رسم النظافة والتطهير & --- & --- & \textenglish{54.00} \\
+\end{tabularx}
+
+\vspace{0.6em}
+\hfill\textbf{المبلغ الإجمالي المستحق: \textenglish{500.00} درهم}
+
+\vspace{0.8em}
+\field{تاريخ الإصدار}{\textenglish{05/08/2026}}
+\field{آخر أجل للأداء}{\textenglish{25/08/2026}}
+
+\vspace{0.8em}
+{\small يرجى أداء الفاتورة قبل آخر أجل لتفادي قطع الخدمة. للاستفسار: \textenglish{contact@radeema.ma} أو \textenglish{+212 5 24 33 22 11}.}
+
+\end{document}

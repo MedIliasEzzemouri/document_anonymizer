@@ -1,0 +1,54 @@
+% Test document for anonymizer — Bank statement, Arabic. FICTITIOUS DATA.
+\documentclass[12pt,a4paper]{article}
+\usepackage{fontspec}
+\usepackage[margin=2cm]{geometry}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{16324F}
+\usepackage{titlesec}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{polyglossia}   % loads bidi — must come AFTER color/titlesec
+\setmainlanguage{arabic}
+\setotherlanguage{english}
+\setmainfont{Amiri}
+\titleformat{\section}{\large\bfseries\color{accent}}{}{0em}{}[\vspace{-0.4em}{\color{accent}\rule{\linewidth}{0.8pt}}]
+\titlespacing{\section}{0pt}{1em}{0.5em}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\newcommand{\field}[2]{\textbf{#1:}\quad #2\\[0.3em]}
+\renewcommand{\arraystretch}{1.3}
+
+\begin{document}
+
+{\Huge\bfseries\color{accent} البنك الشعبي}\\[0.2em]
+{\normalsize وكالة الرباط أكدال — شارع الأمل، الرباط، المغرب}\\[0.8em]
+{\LARGE\bfseries كشف حساب بنكي}
+
+\section{بيانات صاحب الحساب}
+\field{الاسم الكامل}{أحمد بن سالم}
+\field{العنوان}{34 زنقة الأطلس، حي أكدال، الرباط}
+\field{البريد الإلكتروني}{\textenglish{ahmed.bensalem@menara.ma}}
+\field{الهاتف}{\textenglish{+212 6 70 11 22 33}}
+\field{رقم الحساب}{\textenglish{011 780 0001234567890 45}}
+\field{رمز \textenglish{IBAN}}{\textenglish{MA64 0117 8000 0123 4567 8904 5}}
+\field{الفترة}{من 1 إلى 31 يوليوز 2026}
+
+\section{الحركات}
+\begin{tabularx}{\linewidth}{@{}l X r r@{}}
+\textbf{التاريخ} & \textbf{البيان} & \textbf{المبلغ} & \textbf{الرصيد} \\
+\hline
+\textenglish{03/07} & راتب شهري — شركة النور & \textenglish{+12,000.00} & \textenglish{18,340.50} \\
+\textenglish{09/07} & أداء فاتورة الماء والكهرباء & \textenglish{-640.20} & \textenglish{17,700.30} \\
+\textenglish{15/07} & تحويل إلى خديجة بن سالم & \textenglish{-2,000.00} & \textenglish{15,700.30} \\
+\textenglish{22/07} & مشتريات — مرجان & \textenglish{-853.75} & \textenglish{14,846.55} \\
+\textenglish{28/07} & سحب نقدي — شباك آلي & \textenglish{-1,500.00} & \textenglish{13,346.55} \\
+\end{tabularx}
+
+\vspace{0.8em}
+\textbf{الرصيد الختامي بتاريخ 31 يوليوز 2026: \textenglish{13,346.55} درهم}
+
+\vspace{1em}
+{\small هذا الكشف سري. في حال ملاحظة أي خطأ، يرجى الاتصال بالوكالة على البريد
+\textenglish{reclamations@banquepopulaire.ma} خلال 30 يوماً.}
+
+\end{document}

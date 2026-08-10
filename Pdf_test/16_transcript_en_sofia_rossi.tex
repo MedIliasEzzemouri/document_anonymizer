@@ -1,0 +1,54 @@
+% Test document for anonymizer — University transcript, English. FICTITIOUS DATA.
+\documentclass[11pt,a4paper]{article}
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setdefaultlanguage{english}
+\usepackage[margin=2cm]{geometry}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{154360}
+\definecolor{rowgray}{HTML}{ECF0F3}
+\usepackage{titlesec}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{colortbl}
+\titleformat{\section}{\large\bfseries\color{accent}}{}{0em}{}[\vspace{-0.5em}{\color{accent}\rule{\linewidth}{0.8pt}}]
+\titlespacing{\section}{0pt}{1em}{0.5em}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\renewcommand{\arraystretch}{1.3}
+
+\begin{document}
+
+{\Huge\bfseries\color{accent} University of Melbourne}\\[0.2em]
+{\normalsize Office of the Registrar — Parkville, VIC 3010, Australia}\\[0.8em]
+{\LARGE\bfseries Official Academic Transcript}
+
+\section{Student Details}
+\begin{tabularx}{\linewidth}{@{}>{\bfseries}l X >{\bfseries}l X@{}}
+Full name & Sofia Rossi & Student ID & 1039472 \\
+Date of birth & 7 June 2002 & Program & B.Sc. Computer Science \\
+Email & sofia.rossi@student.unimelb.edu.au & Enrolled & 2020 -- 2023 \\
+Address & 14 Faraday Street, Carlton, VIC 3053 & Phone & +61 4 1122 8834 \\
+\end{tabularx}
+
+\section{Course Results}
+\begin{tabularx}{\linewidth}{@{}l X c c@{}}
+\rowcolor{accent}\textcolor{white}{\textbf{Code}} & \textcolor{white}{\textbf{Course}} & \textcolor{white}{\textbf{Credits}} & \textcolor{white}{\textbf{Grade}} \\
+COMP10001 & Foundations of Computing & 12.5 & H1 (89) \\
+\rowcolor{rowgray} MAST10006 & Calculus 2 & 12.5 & H2A (78) \\
+COMP20003 & Algorithms and Data Structures & 12.5 & H1 (91) \\
+\rowcolor{rowgray} COMP30024 & Artificial Intelligence & 12.5 & H1 (85) \\
+SWEN30006 & Software Modelling and Design & 12.5 & H2A (76) \\
+\end{tabularx}
+
+\vspace{0.8em}
+\textbf{Weighted Average Mark (WAM): 84.2 \quad Degree awarded: First Class Honours}
+
+\vspace{1em}
+{\small This transcript is issued to Sofia Rossi and is confidential. Verify authenticity
+at records@unimelb.edu.au quoting student ID 1039472.}
+
+\vspace{1.4em}
+Registrar: Dr. Alan Whitfield \hfill Date of issue: 5 August 2026
+
+\end{document}
