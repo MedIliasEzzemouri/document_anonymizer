@@ -3,5 +3,6 @@
 pytest>=7.0
 
 # Slice 2a — pre-trained NER (models downloaded separately, see README)
-spacy>=3.7
+# spaCy 3.7.x is the last line supporting Python 3.9; newer needs Python >=3.10.
+spacy>=3.7,<3.8
 camel-tools

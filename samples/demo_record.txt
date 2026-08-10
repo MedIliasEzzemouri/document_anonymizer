@@ -1,0 +1,22 @@
+CANDIDATE RECORD / DOSSIER CANDIDAT
+
+Name: John Smith
+Email: john.smith@example.com
+Phone (US): +1 415 555 2671
+SSN: 123-45-6789
+Credit card: 4539578763621486
+
+--- Français ---
+Nom: Fatima Zahra
+Elle habite à Casablanca et travaille chez OCP Group.
+Téléphone: +212 612 345 678
+CIN: AB123456
+Email: fatima.zahra@exemple.ma
+IBAN: MA64011519000001205000534921
+
+--- UK / España ---
+Contact: Oliver Brown, NINO AB123456C
+Contacto: Carlos Ruiz, DNI 12345678Z
+
+--- العربية ---
+اسمي محمد العلوي وأسكن في الدار البيضاء.
