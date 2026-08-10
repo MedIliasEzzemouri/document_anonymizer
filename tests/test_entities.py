@@ -14,6 +14,13 @@ def test_entity_holds_location_and_defaults():
     assert e.replacement is None
 
 
+def test_ner_entity_types_exist():
+    from anonymizer.entities import EntityType
+    assert EntityType.PERSON.value == "PERSON"
+    assert EntityType.ORG.value == "ORG"
+    assert EntityType.LOC.value == "LOC"
+
+
 def test_span_is_frozen():
     import dataclasses
     s = Span(1, 2)
