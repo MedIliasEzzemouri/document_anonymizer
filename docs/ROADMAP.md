@@ -2,7 +2,9 @@
 
 A local, zero-API PII redaction tool: takes a PDF / image / text / DOCX, finds every piece
 of personal information, redacts it, and returns a shareable file plus a JSON audit log.
-Relevant to GDPR (EU) and Law 09-08 (Morocco).
+**International by design** — universal formats (email, phone, IBAN, credit card) work
+worldwide, and national-ID support is a per-country registry (Morocco, USA, UK, Spain
+today; easy to extend). Relevant to GDPR (EU) and Law 09-08 (Morocco).
 
 The project is built in **vertical slices**. Each slice ends with something that runs, and
 each plugs into the shared `Entity` spine established in slice 1 without reworking the core.
@@ -24,7 +26,7 @@ interfaces, so new modalities (NER, OCR, faces) are additive.
 
 ### Slice 1 — Detection core ✅ *(spec approved, in progress)*
 - **In:** plain text file. **Out:** redacted text + JSON audit log, via CLI.
-- `Entity` model + `Span`; `Detector` ABC; `RegexDetector` (email, MA/intl phone, CIN, RIB, IBAN, credit-card w/ Luhn).
+- `Entity` model + `Span`; `Detector` ABC; `RegexDetector` (email, international phone, IBAN, RIB, credit-card w/ Luhn, national IDs: MA CIN, US SSN, UK NINO, ES DNI/NIE).
 - Overlap resolution; `TextRedactor` with 4 styles (labeled, consistent, blackout, remove).
 - Audit log with `--redact-audit` hashing option. Stdlib only.
 - Spec: `docs/superpowers/specs/2026-08-08-anonymizer-core-slice-design.md`

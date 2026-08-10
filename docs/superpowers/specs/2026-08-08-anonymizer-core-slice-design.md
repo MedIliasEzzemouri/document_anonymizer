@@ -24,8 +24,9 @@ PDF, OCR, faces, Streamlit UI) plug in without reworking the core.
 
 - `python -m anonymizer sample.txt --style consistent` prints redacted text and writes an audit log.
 - All four redaction styles work: `labeled`, `consistent`, `blackout`, `remove`.
-- Regex detectors cover: email, Moroccan + international phone, Moroccan CIN, RIB, IBAN,
-  credit card (Luhn-validated).
+- Regex detectors cover: email, international + Moroccan phone, IBAN, RIB,
+  credit card (Luhn-validated), and national IDs for several countries
+  (Morocco CIN, US SSN, UK NINO, Spain DNI/NIE).
 - Overlapping matches are resolved deterministically (no double-redaction).
 - Full unit + end-to-end test coverage; tests pass.
 
@@ -57,10 +58,14 @@ document_anonymizer/
 class EntityType(str, Enum):
     EMAIL = "EMAIL"
     PHONE = "PHONE"
-    CIN = "CIN"
-    RIB = "RIB"
     IBAN = "IBAN"
+    RIB = "RIB"
     CREDIT_CARD = "CREDIT_CARD"
+    # National IDs (one member per country format):
+    CIN = "CIN"      # Morocco
+    SSN = "SSN"      # United States
+    NINO = "NINO"    # United Kingdom
+    DNI = "DNI"      # Spain (DNI / NIE)
     # PERSON / ORG / LOC reserved for the NER slice
 
 @dataclass(frozen=True)
@@ -98,16 +103,26 @@ class Detector(ABC):
 compiled pattern (+ optional validator, e.g. Luhn for credit cards). `detect()` scans the
 text, emits an `Entity` per match with `detector="regex"`.
 
-### Regex pattern set (Morocco-first, Law 09-08 relevant)
+### Regex pattern set (international, Law 09-08 / GDPR relevant)
+
+Universal formats work for any country; national IDs are a per-country registry
+that is trivial to extend (add one line per new country).
 
 | Type | Pattern intent | Validation |
 |------|----------------|------------|
 | EMAIL | standard local@domain.tld | — |
-| PHONE | Moroccan `+212`/`0[5-7]…` + generic international | length/format |
-| CIN | Moroccan national ID `[A-Z]{1,2}\d{5,6}` | — |
-| RIB | 24-digit Moroccan bank account | length |
-| IBAN | `MA` + Moroccan form, plus generic `[A-Z]{2}\d{2}…` | length |
+| PHONE | international `+<country code>…`, plus Moroccan local `0[5-7]…` | length/format |
+| IBAN | any country: `[A-Z]{2}\d{2}[A-Z0-9]{11,30}` | length |
+| RIB | 24-digit bank account | length |
 | CREDIT_CARD | 13–19 digit groups | **Luhn check** to cut false positives |
+| CIN | 🇲🇦 Morocco `[A-Z]{1,2}\d{5,6}` | — |
+| SSN | 🇺🇸 USA `\d{3}-\d{2}-\d{4}` (dashes required, low false-positive) | — |
+| NINO | 🇬🇧 UK `[A-CEGHJ-PR-TW-Z]{2}\d{6}[A-D]` (distinctive) | — |
+| DNI | 🇪🇸 Spain DNI `\d{8}[A-Z]` / NIE `[XYZ]\d{7}[A-Z]` | — |
+
+**Deferred national IDs:** France INSEE and Germany use long runs of plain digits
+that collide with credit-card / phone ranges, so they are intentionally left out
+until a checksum validator can gate them (same mechanism as Luhn for cards).
 
 ## Pipeline (`pipeline.py`)
 
