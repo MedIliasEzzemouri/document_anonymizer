@@ -32,6 +32,9 @@ class NerDetector(Detector):
                 etype = LABEL_MAP.get(label.upper())
                 if etype is None:
                     continue
+                start, end = self._trim(text, start, end)
+                if end <= start:
+                    continue  # nothing left after trimming
                 found.append(
                     Entity(
                         type=etype,
@@ -41,3 +44,16 @@ class NerDetector(Detector):
                     )
                 )
         return found
+
+    @staticmethod
+    def _trim(text: str, start: int, end: int) -> Tuple[int, int]:
+        # An entity never crosses a line break (a name doesn't span two lines).
+        newline = text.find("\n", start, end)
+        if newline != -1:
+            end = newline
+        # Strip surrounding whitespace, adjusting the span to stay accurate.
+        while start < end and text[start].isspace():
+            start += 1
+        while end > start and text[end - 1].isspace():
+            end -= 1
+        return start, end
