@@ -38,3 +38,8 @@ def rects_for_entity(entity, index) -> List[Tuple[float, float, float, float]]:
 
 def entities_to_rects(entities, index) -> List[Tuple[float, float, float, float]]:
     return [r for entity in entities for r in rects_for_entity(entity, index)]
+
+
+def extract_page_words(page):
+    # PyMuPDF: list of (x0, y0, x1, y1, word, block, line, word_no)
+    return page.get_text("words")
