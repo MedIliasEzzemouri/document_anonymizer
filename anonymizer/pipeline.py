@@ -31,12 +31,11 @@ class AnonymizationResult:
     entities: List[Entity]
 
 
-def anonymize_text(
+def detect_entities(
     text: str,
     types: Optional[List[EntityType]] = None,
-    style: RedactionStyle = RedactionStyle.LABELED,
     detectors: Optional[List[Detector]] = None,
-) -> AnonymizationResult:
+) -> List[Entity]:
     if detectors is None:
         detectors = [RegexDetector(types=types)]
     found: List[Entity] = []
@@ -44,7 +43,16 @@ def anonymize_text(
         found.extend(detector.detect(text))
     allowed = set(types) if types is not None else set(DEFAULT_REDACTION_TYPES)
     found = [e for e in found if e.type in allowed]
-    kept = resolve_overlaps(found)
+    return resolve_overlaps(found)
+
+
+def anonymize_text(
+    text: str,
+    types: Optional[List[EntityType]] = None,
+    style: RedactionStyle = RedactionStyle.LABELED,
+    detectors: Optional[List[Detector]] = None,
+) -> AnonymizationResult:
+    kept = detect_entities(text, types=types, detectors=detectors)
     redacted, entities = TextRedactor(style).redact(text, kept)
     return AnonymizationResult(redacted_text=redacted, entities=entities)
 
