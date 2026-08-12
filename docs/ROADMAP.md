@@ -63,6 +63,24 @@ interfaces, so new modalities (NER, OCR, faces) are additive.
 - Swap the winning model behind the same `NerDetector` interface — no pipeline changes.
 - **Depends on:** Slice 2 (baseline) + Slice 5 (labeled data). Cannot start before both.
 
+## Future model expansion (all need PyTorch — currently blocked on install)
+
+A three-model vision beyond the current regex + small-spaCy baseline:
+
+- **Better per-language NER (fits existing `NerDetector` as new engines):** French
+  CamemBERT (`Jean-Baptiste/camembert-ner`) / `fr_core_news_lg`; English `en_core_web_trf`
+  (RoBERTa) or HF token-classification (BERT/RoBERTa/DeBERTa on CoNLL/OntoNotes); Arabic
+  CAMeL; **GLiNER** for zero-shot arbitrary entity types (may reduce need for fine-tuning).
+  → a "transformer foundation" slice once torch installs.
+- **Document-type classifier (new subsystem):** classify the whole doc (CV / medical / bank /
+  legal / invoice…) to drive routing, audit metadata, or per-type PII policies. → its own slice.
+  *Open question: what it drives (routing vs metadata vs policy).*
+- **Information/PII-type classification (Model 1):** *needs clarification* — may overlap with
+  NER typing we already do, or become a sensitivity-level / PII-vs-not false-positive filter.
+
+**Hard prerequisite:** PyTorch install (torch wheel download failed on network). Resolve
+before any of the above. See [[ner-baseline-findings]].
+
 ## Cross-cutting principles
 - **Everything runs local. Zero API keys.**
 - **Library-first**, CLI/UI are thin wrappers.
