@@ -1,5 +1,6 @@
 import argparse
 import json
+import os
 import sys
 from typing import List, Optional
 
@@ -7,6 +8,7 @@ from anonymizer.audit import build_audit_log
 from anonymizer.entities import EntityType
 from anonymizer.pipeline import anonymize_text, build_detectors
 from anonymizer.redactors.text_redactor import RedactionStyle
+from anonymizer.redactors.pdf_redactor import PdfRedactor, PdfRedactionMode
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -22,7 +24,15 @@ def build_parser() -> argparse.ArgumentParser:
                    help="store SHA-256 of originals in the audit log")
     p.add_argument("--ner", action="store_true",
                    help="also run name detection (spaCy/CAMeL); slower, loads models")
+    p.add_argument("--pdf-mode", default="secure",
+                   choices=[m.value for m in PdfRedactionMode],
+                   help="PDF redaction appearance (default: secure)")
     return p
+
+
+def _default_pdf_out(path: str) -> str:
+    stem, _ext = os.path.splitext(path)
+    return stem + "_redacted.pdf"
 
 
 def _parse_types(raw: Optional[str]) -> Optional[List[EntityType]]:
@@ -33,6 +43,21 @@ def _parse_types(raw: Optional[str]) -> Optional[List[EntityType]]:
 
 def main(argv: Optional[List[str]] = None) -> int:
     args = build_parser().parse_args(argv)
+
+    if args.input.lower().endswith(".pdf"):
+        out_path = args.out or _default_pdf_out(args.input)
+        redactor = PdfRedactor(
+            mode=PdfRedactionMode(args.pdf_mode),
+            types=_parse_types(args.types),
+            use_ner=args.ner,
+        )
+        audit = redactor.redact(args.input, out_path)
+        if args.audit:
+            with open(args.audit, "w", encoding="utf-8") as fh:
+                json.dump(audit, fh, ensure_ascii=False, indent=2)
+        sys.stdout.write("Redacted PDF written to {}\n".format(out_path))
+        return 0
+
     with open(args.input, "r", encoding="utf-8") as fh:
         text = fh.read()
 
