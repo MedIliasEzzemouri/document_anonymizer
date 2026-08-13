@@ -91,7 +91,8 @@ before any of the above. See [[ner-baseline-findings]].
 - [x] Slice 1 — detection core (regex, international) merged to `main`, 39 tests passing
 - [x] Slice 2a — NER Path A (pre-trained spaCy EN/FR) on text, merged to `main`
 - [x] Slice 2b — native PDF read + coordinate-aware redaction (secure/labeled/cover), merged to `main`
-  - Finding: names embedded in **social URLs/handles** (e.g. `linkedin.com/in/sarahmitchell89`) leak — add a `URL`/`SOCIAL` regex detector (small, high-value).
+  - Finding (fixed): names in **social URLs/handles** (`linkedin.com/in/...`) leaked — added a `URL` regex detector.
+  - Open finding: PII **split across a line break** (hyphenated wrap, e.g. an email breaking mid-domain) isn't reconstructed contiguously, so it's missed. Needs dehyphenation in `words_to_text_and_index`. Low frequency.
 - [ ] Slice 2c — Arabic NER (CAMeL) — install blocked on PyTorch download; code degrades gracefully
 - [ ] Slice 3 — OCR + faces
 - [ ] Slice 4 — Streamlit UI
