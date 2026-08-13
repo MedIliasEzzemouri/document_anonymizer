@@ -1,0 +1,54 @@
+% Test document for anonymizer — Bank statement, English. FICTITIOUS DATA.
+\documentclass[11pt,a4paper]{article}
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setdefaultlanguage{english}
+\usepackage[margin=1.8cm]{geometry}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{16324F}
+\definecolor{rowgray}{HTML}{EEF2F6}
+\usepackage{titlesec}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{colortbl}
+\titleformat{\section}{\large\bfseries\color{accent}}{}{0em}{}[\vspace{-0.5em}{\color{accent}\rule{\linewidth}{0.8pt}}]
+\titlespacing{\section}{0pt}{1em}{0.5em}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\renewcommand{\arraystretch}{1.25}
+
+\begin{document}
+
+{\Huge\bfseries\color{accent} First National Bank}\\[0.2em]
+{\normalsize 200 Market Street, Philadelphia, PA 19106, USA \quad
+Customer service: +1 (800) 555-0199}\\[0.8em]
+{\LARGE\bfseries Monthly Account Statement}
+
+\section{Account Holder}
+\begin{tabularx}{\linewidth}{@{}>{\bfseries}l X >{\bfseries}l X@{}}
+Name & Emily Thompson & Statement period & 01--31 July 2026 \\
+Address & 88 Chestnut Lane, Philadelphia, PA 19107 & Account number & 4471~8890~2231 \\
+Email & emily.thompson@icloud.com & Routing number & 031000053 \\
+Phone & +1 (267) 555-0173 & IBAN & US64 FNBK 0310 0005 3447 18 \\
+SSN (last 4) & ***-**-6620 & Opening balance & USD 5,412.09 \\
+\end{tabularx}
+
+\section{Transactions}
+\begin{tabularx}{\linewidth}{@{}l X r r@{}}
+\rowcolor{accent}\textcolor{white}{\textbf{Date}} & \textcolor{white}{\textbf{Description}} & \textcolor{white}{\textbf{Amount}} & \textcolor{white}{\textbf{Balance}} \\
+03 Jul & Grocery — Whole Foods Market & -84.32 & 5,327.77 \\
+\rowcolor{rowgray} 07 Jul & Salary — Meridian Health Corp & +3,150.00 & 8,477.77 \\
+12 Jul & Electricity — PECO Energy & -142.66 & 8,335.11 \\
+\rowcolor{rowgray} 18 Jul & Transfer to Michael Thompson & -500.00 & 7,835.11 \\
+24 Jul & Restaurant — La Cucina & -67.90 & 7,767.21 \\
+\rowcolor{rowgray} 29 Jul & Online purchase — Amazon.com & -213.45 & 7,553.76 \\
+\end{tabularx}
+
+\vspace{0.8em}
+\textbf{Closing balance (31 July 2026): USD 7,553.76}
+
+\vspace{1em}
+{\small This statement is confidential. If you notice any discrepancy, contact
+disputes@firstnationalbank.com within 30 days.}
+
+\end{document}

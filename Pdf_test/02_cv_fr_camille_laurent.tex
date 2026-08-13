@@ -1,0 +1,64 @@
+% Document de test pour l'anonymiseur — CV, Francais. DONNEES FICTIVES.
+\documentclass[11pt,a4paper]{article}
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setdefaultlanguage{french}
+\usepackage[margin=2cm]{geometry}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{6A1B1A}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\hypersetup{hidelinks}
+\setlist{nosep,leftmargin=1.2em}
+\titleformat{\section}{\large\bfseries\color{accent}}{}{0em}{}[\vspace{-0.5em}{\color{accent}\rule{\linewidth}{0.8pt}}]
+\titlespacing{\section}{0pt}{1.1em}{0.5em}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+{\Huge\bfseries\color{accent} Camille Laurent}\\[0.3em]
+{\large Cheffe de Projet Marketing Digital}\\[0.6em]
+\begin{tabularx}{\linewidth}{@{}lX@{}}
+Courriel : \href{mailto:camille.laurent@orange.fr}{camille.laurent@orange.fr} &
+Téléphone : +33 6 41 82 05 77 \\
+Adresse : 18 rue des Capucins, 69001 Lyon, France &
+Date de naissance : 5 juillet 1991 \\
+Nationalité : Française \quad N° Sécurité Sociale : 2~91~07~69~123~456~78 &
+Permis de conduire : B (2010) \\
+\end{tabularx}
+
+\section{Profil}
+Cheffe de projet marketing avec 8 ans d'expérience en stratégie digitale,
+acquisition et gestion d'équipes créatives.
+
+\section{Expérience Professionnelle}
+\textbf{Cheffe de Projet Marketing} — Groupe Média Lyon \hfill Mars 2019 -- Présent
+\begin{itemize}
+  \item Pilotage de campagnes multicanales pour un budget annuel de 1,2 M€.
+  \item Augmentation du taux de conversion de 25\% en 18 mois.
+\end{itemize}
+\vspace{0.4em}
+\textbf{Chargée de Communication} — Agence Étincelle, Paris \hfill Sep 2015 -- Fév 2019
+\begin{itemize}
+  \item Gestion des réseaux sociaux et relations presse pour 12 clients.
+\end{itemize}
+
+\section{Formation}
+\textbf{Master Marketing et Communication}, Université Lumière Lyon 2 \hfill 2013 -- 2015\\
+Mention Bien
+
+\section{Compétences}
+SEO/SEA, Google Analytics, HubSpot, Gestion de projet, Adobe Creative Suite
+
+\section{Langues}
+Français (langue maternelle), Anglais (courant), Espagnol (intermédiaire)
+
+\section{Références}
+Sophie Moreau — Directrice, Groupe Média Lyon\\
+Courriel : sophie.moreau@groupemedialyon.fr \quad Tél. : +33 6 12 33 88 90
+
+\end{document}

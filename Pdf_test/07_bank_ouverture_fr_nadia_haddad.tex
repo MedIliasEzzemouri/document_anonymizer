@@ -1,0 +1,55 @@
+% Document de test pour l'anonymiseur — Ouverture de compte bancaire, Francais. DONNEES FICTIVES.
+\documentclass[11pt,a4paper]{article}
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setdefaultlanguage{french}
+\usepackage[margin=2cm]{geometry}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{00695C}
+\usepackage{titlesec}
+\usepackage{array}
+\usepackage{tabularx}
+\titleformat{\section}{\large\bfseries\color{accent}}{}{0em}{}[\vspace{-0.5em}{\color{accent}\rule{\linewidth}{0.8pt}}]
+\titlespacing{\section}{0pt}{1em}{0.5em}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\renewcommand{\arraystretch}{1.3}
+
+\begin{document}
+
+{\Huge\bfseries\color{accent} BNP Paribas}\\[0.2em]
+{\normalsize Agence Bordeaux Centre — 12 cours de l'Intendance, 33000 Bordeaux, France}\\[0.8em]
+{\LARGE\bfseries Demande d'Ouverture de Compte}
+
+\section{Identité du titulaire}
+\begin{tabularx}{\linewidth}{@{}>{\bfseries}l X@{}}
+Nom et prénom & Nadia Haddad \\
+Date et lieu de naissance & 3 avril 1988 à Oujda (Maroc) \\
+Nationalité & Franco-marocaine \\
+Adresse & 27 rue Sainte-Catherine, 33000 Bordeaux \\
+Courriel & nadia.haddad88@gmail.com \\
+Téléphone & +33 7 58 91 22 04 \\
+Pièce d'identité & Carte nationale n° 060883412 \\
+N° fiscal & 30 88 04 33 291 047 \\
+Profession & Pharmacienne \\
+\end{tabularx}
+
+\section{Informations du compte}
+\begin{tabularx}{\linewidth}{@{}>{\bfseries}l X@{}}
+Type de compte & Compte courant particulier \\
+IBAN & FR76 3000 4008 2800 0123 4567 891 \\
+BIC & BNPAFRPPXXX \\
+Date d'ouverture & 20 août 2026 \\
+Dépôt initial & 1 500,00 € \\
+\end{tabularx}
+
+\section{Déclaration}
+Je soussignée, Nadia Haddad, certifie l'exactitude des renseignements ci-dessus
+et accepte les conditions générales de la banque.
+
+\vspace{1.5em}
+Fait à Bordeaux, le 20 août 2026.\\[1.2em]
+Signature du titulaire : \underline{\hspace{5cm}}\\[0.6em]
+Conseiller : M. Julien Faure — courriel : julien.faure@bnpparibas.fr
+
+\end{document}

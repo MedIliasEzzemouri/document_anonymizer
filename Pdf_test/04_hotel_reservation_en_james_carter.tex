@@ -1,0 +1,59 @@
+% Test document for anonymizer — Hospitality booking confirmation, English. FICTITIOUS DATA.
+\documentclass[11pt,a4paper]{article}
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setdefaultlanguage{english}
+\usepackage[margin=2cm]{geometry}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{0B5345}
+\usepackage{titlesec}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\hypersetup{hidelinks}
+\titleformat{\section}{\large\bfseries\color{accent}}{}{0em}{}[\vspace{-0.5em}{\color{accent}\rule{\linewidth}{0.8pt}}]
+\titlespacing{\section}{0pt}{1.1em}{0.5em}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\renewcommand{\arraystretch}{1.3}
+
+\begin{document}
+
+{\Huge\bfseries\color{accent} The Grand Plaza Hotel}\\[0.2em]
+{\large 350 Fifth Avenue, New York, NY 10118, USA}\\
+Reservations: +1 (212) 555-0180 \quad reservations@grandplazahotel.com\\[0.8em]
+{\LARGE\bfseries Booking Confirmation}
+
+\section{Guest Details}
+\begin{tabularx}{\linewidth}{@{}>{\bfseries}l X@{}}
+Guest name & Mr. James Carter \\
+Email & james.carter88@yahoo.com \\
+Phone & +1 (415) 555-0142 \\
+Home address & 1224 Sunset Boulevard, San Francisco, CA 94110, USA \\
+Passport number & 512034876 (United States) \\
+Loyalty ID & GP-778341102 \\
+\end{tabularx}
+
+\section{Reservation}
+\begin{tabularx}{\linewidth}{@{}>{\bfseries}l X@{}}
+Confirmation number & GP-2026-0084517 \\
+Check-in & 14 September 2026 (15:00) \\
+Check-out & 18 September 2026 (11:00) \\
+Room type & Deluxe King, City View — Room 1408 \\
+Guests & 2 adults \\
+Rate & USD 389.00 / night \quad Total: USD 1,556.00 \\
+\end{tabularx}
+
+\section{Payment}
+\begin{tabularx}{\linewidth}{@{}>{\bfseries}l X@{}}
+Card holder & James Carter \\
+Card & VISA ending in 4921 \quad Exp. 07/28 \\
+Billing ZIP & 94110 \\
+Deposit charged & USD 389.00 on 2 August 2026 \\
+\end{tabularx}
+
+\vspace{1em}
+Thank you for choosing The Grand Plaza Hotel. For changes, contact us at
+concierge@grandplazahotel.com and quote your confirmation number.
+
+\end{document}

@@ -1,0 +1,60 @@
+% Test document for anonymizer — CV, Arabic (hospitality). FICTITIOUS DATA.
+\documentclass[12pt,a4paper]{article}
+\usepackage{fontspec}
+\usepackage[margin=2cm]{geometry}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{1F3A5F}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{polyglossia}   % loads bidi — must come AFTER color/titlesec
+\setmainlanguage{arabic}
+\setotherlanguage{english}
+\setmainfont{Amiri}
+\titleformat{\section}{\large\bfseries\color{accent}}{}{0em}{}[\vspace{-0.4em}{\color{accent}\rule{\linewidth}{0.8pt}}]
+\titlespacing{\section}{0pt}{1em}{0.5em}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\newcommand{\field}[2]{\textbf{#1:}\quad #2\\[0.3em]}
+
+\begin{document}
+
+{\Huge\bfseries\color{accent} هشام العلوي}\\[0.3em]
+{\large مدير فندق}\\[0.8em]
+
+\field{البريد الإلكتروني}{\textenglish{hicham.alaoui@gmail.com}}
+\field{الهاتف}{\textenglish{+212 6 62 33 44 55}}
+\field{العنوان}{12 شارع الحسن الثاني، الدار البيضاء، المغرب}
+\field{تاريخ الميلاد}{8 يناير 1985}
+\field{بطاقة التعريف الوطنية}{\textenglish{BK456123}}
+\field{الجنسية}{مغربية}
+
+\section{نبذة مهنية}
+مدير فندق يتمتع بخبرة تفوق اثنتي عشرة سنة في قطاع الضيافة والفندقة،
+متخصص في إدارة الفرق وتحسين تجربة النزلاء ورفع جودة الخدمات.
+
+\section{الخبرة المهنية}
+\textbf{مدير عام} — فندق أطلس الدار البيضاء \hfill (2019 -- الآن)
+\begin{itemize}[leftmargin=1.4em]
+  \item الإشراف على فريق مكوّن من 45 موظفاً في مختلف الأقسام.
+  \item رفع نسبة رضا النزلاء إلى 92\% خلال ثلاث سنوات.
+\end{itemize}
+\vspace{0.3em}
+\textbf{مساعد مدير الاستقبال} — فندق المنارة مراكش \hfill (2013 -- 2019)
+\begin{itemize}[leftmargin=1.4em]
+  \item تنظيم الحجوزات وإدارة شكاوى النزلاء وضمان جودة الخدمة.
+\end{itemize}
+
+\section{التعليم}
+\textbf{شهادة الماجستير في إدارة الفنادق والسياحة} — جامعة القاضي عياض، مراكش \hfill (2011)
+
+\section{المهارات}
+إدارة الفرق، خدمة العملاء، أنظمة الحجز \textenglish{(Opera PMS)}، التسويق الفندقي، إدارة الميزانية
+
+\section{اللغات}
+العربية (اللغة الأم)، الفرنسية (ممتاز)، الإنجليزية (جيد جداً)
+
+\section{المراجع}
+السيدة سمية بناني — مديرة الموارد البشرية، فندق أطلس\\
+البريد الإلكتروني: \textenglish{soumia.bennani@atlas-hotels.ma}\quad الهاتف: \textenglish{+212 5 22 44 55 66}
+
+\end{document}
