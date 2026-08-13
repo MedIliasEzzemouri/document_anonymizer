@@ -24,6 +24,11 @@ def luhn_valid(number: str) -> bool:
 PATTERNS: Dict[EntityType, "re.Pattern"] = {
     # --- International / universal formats ---
     EntityType.EMAIL: re.compile(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b"),
+    # URLs / social handles: scheme, www., or a bare domain WITH a path (domain.tld/...).
+    # Requiring a path skips plain company domains and never matches an email (no slash).
+    EntityType.URL: re.compile(
+        r"(?:\bhttps?://\S+|\bwww\.\S+|\b[A-Za-z0-9-]+\.[A-Za-z]{2,}/\S+)"
+    ),
     # IBAN: two-letter country code + check digits + up to 30 alphanumerics.
     EntityType.IBAN: re.compile(r"\b[A-Z]{2}\d{2}[A-Z0-9]{11,30}\b"),
     # Phone: international "+<country code>..." form, OR the Moroccan local 0[5-7] form.
