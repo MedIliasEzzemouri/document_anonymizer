@@ -5,4 +5,5 @@ venv/
 .pytest_cache/
 .DS_Store
 *.egg-info/
-Pdf_test/
+# Keep the synthetic Pdf_test fixtures tracked; ignore only generated redaction outputs.
+Pdf_test/*_redacted.pdf
