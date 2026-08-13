@@ -9,6 +9,7 @@ class EntityType(str, Enum):
     IBAN = "IBAN"
     RIB = "RIB"
     CREDIT_CARD = "CREDIT_CARD"
+    URL = "URL"      # web/social links, e.g. linkedin.com/in/<handle>
     # National ID numbers (one member per country format).
     CIN = "CIN"      # Morocco
     SSN = "SSN"      # United States
