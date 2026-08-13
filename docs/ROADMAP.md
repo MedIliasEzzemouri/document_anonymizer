@@ -90,7 +90,8 @@ before any of the above. See [[ner-baseline-findings]].
 ## Status
 - [x] Slice 1 — detection core (regex, international) merged to `main`, 39 tests passing
 - [x] Slice 2a — NER Path A (pre-trained spaCy EN/FR) on text, merged to `main`
-- [ ] Slice 2b — native PDF read + coordinate-aware redaction
+- [x] Slice 2b — native PDF read + coordinate-aware redaction (secure/labeled/cover), merged to `main`
+  - Finding: names embedded in **social URLs/handles** (e.g. `linkedin.com/in/sarahmitchell89`) leak — add a `URL`/`SOCIAL` regex detector (small, high-value).
 - [ ] Slice 2c — Arabic NER (CAMeL) — install blocked on PyTorch download; code degrades gracefully
 - [ ] Slice 3 — OCR + faces
 - [ ] Slice 4 — Streamlit UI
