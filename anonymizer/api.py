@@ -1,5 +1,6 @@
 import json
 import os
+import time
 from typing import List, Optional
 
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
@@ -17,7 +18,14 @@ app = FastAPI(title="Document Anonymizer")
 
 @app.on_event("startup")
 def _startup() -> None:
-    db.init_db()
+    # Postgres may boot slower than this container; retry a few times before giving up.
+    for _ in range(10):
+        try:
+            db.init_db()
+            return
+        except Exception:
+            time.sleep(2)
+    db.init_db()  # final attempt — let the error surface if the DB is truly down
 
 
 @app.get("/health")

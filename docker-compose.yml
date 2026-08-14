@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: anon
+      POSTGRES_PASSWORD: anon
+      POSTGRES_DB: anonymizer
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  api:
+    build: .
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql://anon:anon@db:5432/anonymizer
+    ports:
+      - "8000:8000"
+
+volumes:
+  pgdata:
