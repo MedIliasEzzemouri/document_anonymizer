@@ -44,8 +44,12 @@ def test_org_redacted_when_explicitly_requested():
     assert "ACME" not in result.redacted_text
 
 
-def test_build_detectors_regex_only_by_default():
+def test_build_detectors_no_ner_by_default():
     from anonymizer.pipeline import build_detectors
+    from anonymizer.detectors.label_rules import LabelDetector
     ds = build_detectors()
-    assert len(ds) == 1
-    assert isinstance(ds[0], RegexDetector)
+    # regex + label always run; NER only when requested
+    assert any(isinstance(d, RegexDetector) for d in ds)
+    assert any(isinstance(d, LabelDetector) for d in ds)
+    from anonymizer.detectors.ner_detector import NerDetector
+    assert not any(isinstance(d, NerDetector) for d in ds)

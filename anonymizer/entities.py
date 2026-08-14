@@ -10,6 +10,8 @@ class EntityType(str, Enum):
     RIB = "RIB"
     CREDIT_CARD = "CREDIT_CARD"
     URL = "URL"      # web/social links, e.g. linkedin.com/in/<handle>
+    DATE = "DATE"    # dates (e.g. date of birth)
+    REF = "REF"      # reference / case / file numbers, e.g. N° de dossier
     # National ID numbers (one member per country format).
     CIN = "CIN"      # Morocco
     SSN = "SSN"      # United States

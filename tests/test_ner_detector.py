@@ -54,6 +54,18 @@ def test_entity_span_strips_surrounding_whitespace():
     assert ents[0].span.end == 7
 
 
+def test_drops_label_and_short_noise():
+    # "Nom"(0-3) "Montant"(4-11) "US"(12-14) "Ahmed"(15-20)
+    text = "Nom Montant US Ahmed"
+    engines = {"e": fake_engine([("LOC", 0, 3), ("PERSON", 4, 11),
+                                 ("LOC", 12, 14), ("PERSON", 15, 20)])}
+    texts = {e.text for e in NerDetector(engines).detect(text)}
+    assert "Nom" not in texts       # label word
+    assert "Montant" not in texts   # label word
+    assert "US" not in texts        # 2-char noise
+    assert "Ahmed" in texts         # real name kept
+
+
 def test_multiple_engines_all_run():
     engines = {
         "a": fake_engine([("PERSON", 0, 3)]),
