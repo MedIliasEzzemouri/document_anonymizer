@@ -35,6 +35,10 @@ PATTERNS: Dict[EntityType, "re.Pattern"] = {
     EntityType.PHONE: re.compile(
         r"(?:\+\d{1,3}[ .\-]?\d(?:[ .\-]?\d){5,13}|\b0[5-7](?:[ .\-]?\d){8}\b)"
     ),
+    # Dates: DD/MM/YYYY, DD-MM-YYYY, DD.MM.YYYY, or ISO YYYY-MM-DD.
+    EntityType.DATE: re.compile(
+        r"(?:\b\d{1,2}[/.\-]\d{1,2}[/.\-]\d{2,4}\b|\b\d{4}-\d{1,2}-\d{1,2}\b)"
+    ),
     EntityType.RIB: re.compile(r"\b\d{24}\b"),
     # First digit, then 12-18 more digits each preceded by an optional separator.
     # Separators sit *between* digits only, so the match never eats a trailing space.
