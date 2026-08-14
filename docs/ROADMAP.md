@@ -86,6 +86,13 @@ A three-model vision beyond the current regex + small-spaCy baseline:
 **Hard prerequisite:** PyTorch install (torch wheel download failed on network). Resolve
 before any of the above. See [[ner-baseline-findings]].
 
+### Structured-form detectors (done, on `main`)
+- Real test on a Campus France receipt exposed: small spaCy model leaked the ALL-CAPS surname and boxed French labels. Fixes shipped:
+  - **DATE** regex detector (birthdates etc.); **REF** type (dossier/case numbers).
+  - **LabelDetector**: `Label : Value` extraction (Nom/Prénom/Date de naissance/N° de dossier, FR+EN) — deterministic, 100% precision on forms.
+  - **NER noise filter**: drops label/short-token false positives (Nom, Montant, US…).
+- Open follow-up: line-aware PDF text reconstruction (preserve newlines) to stop NER over-extending across fields; and CamemBERT (below) for French free-text.
+
 ## Cross-cutting principles
 - **Everything runs local. Zero API keys.**
 - **Library-first**, CLI/UI are thin wrappers.
