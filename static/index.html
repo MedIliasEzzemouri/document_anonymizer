@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Document Anonymizer</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<style>
+  body{font-family:system-ui,Arial,sans-serif;margin:0;background:#0f1420;color:#e7ecf3}
+  header{padding:18px 24px;background:#151c2c;border-bottom:1px solid #24304a}
+  main{display:flex;gap:24px;padding:24px;flex-wrap:wrap}
+  .panel{background:#151c2c;border:1px solid #24304a;border-radius:10px;padding:16px}
+  #drop{flex:1;min-width:280px;border:2px dashed #3a4a6a;text-align:center;padding:40px;border-radius:10px;cursor:pointer}
+  #drop.hover{background:#1b2740}
+  label{display:block;margin:8px 0 4px} .row{margin:6px 0}
+  button{background:#3b82f6;color:#fff;border:0;padding:10px 16px;border-radius:8px;cursor:pointer;font-size:15px}
+  button:disabled{opacity:.5}
+  canvas{max-width:100%;border:1px solid #24304a;border-radius:6px;margin-top:8px}
+  .warn{color:#f59e0b} .muted{color:#8ea0bd;font-size:13px}
+  code{background:#0b1020;padding:1px 5px;border-radius:4px}
+</style>
+</head>
+<body>
+<header><h2>🛡 Document Anonymizer</h2><span class="muted">Drop a PDF, get a redacted copy. Runs local.</span></header>
+<main>
+  <section class="panel" style="min-width:240px">
+    <label>Redaction mode</label>
+    <div class="row"><label><input type="radio" name="mode" value="secure" checked> secure (removes text)</label></div>
+    <div class="row"><label><input type="radio" name="mode" value="labeled"> labeled</label></div>
+    <div class="row"><label><input type="radio" name="mode" value="cover"> cover <span class="warn">(insecure)</span></label></div>
+    <label><input type="checkbox" id="ner"> Detect names (NER)</label>
+    <label>Redact types <span class="muted">(blank = all)</span></label>
+    <div id="types" class="row muted">
+      <label><input type="checkbox" value="EMAIL" checked>EMAIL</label>
+      <label><input type="checkbox" value="PHONE" checked>PHONE</label>
+      <label><input type="checkbox" value="PERSON" checked>PERSON</label>
+      <label><input type="checkbox" value="LOC" checked>LOC</label>
+      <label><input type="checkbox" value="URL" checked>URL</label>
+      <label><input type="checkbox" value="IBAN" checked>IBAN</label>
+      <label><input type="checkbox" value="CREDIT_CARD" checked>CARD</label>
+      <label><input type="checkbox" value="CIN" checked>CIN</label>
+      <label><input type="checkbox" value="SSN" checked>SSN</label>
+      <label><input type="checkbox" value="NINO" checked>NINO</label>
+      <label><input type="checkbox" value="DNI" checked>DNI</label>
+    </div>
+  </section>
+
+  <section class="panel" style="flex:1;min-width:320px">
+    <div id="drop">Drop a PDF here or click to choose<input type="file" id="file" accept="application/pdf" hidden></div>
+    <div class="row"><button id="go" disabled>Redact</button> <span id="status" class="muted"></span></div>
+    <div id="summary" class="row"></div>
+    <div style="display:flex;gap:16px;flex-wrap:wrap">
+      <div><b>Before</b><canvas id="before"></canvas></div>
+      <div><b>After</b><canvas id="after"></canvas></div>
+    </div>
+    <div class="row"><a id="dl" style="display:none"><button>⬇ Download redacted PDF</button></a></div>
+  </section>
+</main>
+<script>
+const $=s=>document.querySelector(s);
+let picked=null, outBlob=null;
+const drop=$("#drop"), fileInput=$("#file");
+drop.onclick=()=>fileInput.click();
+drop.ondragover=e=>{e.preventDefault();drop.classList.add("hover")};
+drop.ondragleave=()=>drop.classList.remove("hover");
+drop.ondrop=e=>{e.preventDefault();drop.classList.remove("hover");pick(e.dataTransfer.files[0])};
+fileInput.onchange=e=>pick(e.target.files[0]);
+function pick(f){ if(!f) return; picked=f; $("#go").disabled=false; drop.textContent=f.name; render(f,"#before"); }
+
+async function render(src,sel){
+  const buf = src instanceof Blob ? await src.arrayBuffer() : src;
+  const pdf = await pdfjsLib.getDocument({data:buf}).promise;
+  const page = await pdf.getPage(1);
+  const vp = page.getViewport({scale:1.1});
+  const c=$(sel); c.width=vp.width; c.height=vp.height;
+  await page.render({canvasContext:c.getContext("2d"),viewport:vp}).promise;
+}
+
+$("#go").onclick=async()=>{
+  if(!picked) return;
+  const mode=document.querySelector('input[name=mode]:checked').value;
+  const ner=$("#ner").checked;
+  const types=[...document.querySelectorAll('#types input:checked')].map(x=>x.value).join(",");
+  const fd=new FormData(); fd.append("file",picked); fd.append("mode",mode);
+  fd.append("ner",ner); fd.append("types",types);
+  $("#status").textContent="Redacting…"; $("#go").disabled=true;
+  const r=await fetch("/redact",{method:"POST",body:fd});
+  if(!r.ok){ $("#status").textContent="Error: "+r.status; $("#go").disabled=false; return; }
+  const counts=JSON.parse(r.headers.get("X-Redaction-Counts")||"{}");
+  outBlob=await r.blob();
+  const parts=Object.entries(counts).map(([k,v])=>`<code>${k} ${v}</code>`).join(" ");
+  $("#summary").innerHTML="Removed: "+(parts||"nothing");
+  await render(outBlob,"#after");
+  const a=$("#dl"); a.href=URL.createObjectURL(outBlob); a.download=picked.name.replace(/\.pdf$/i,"_redacted.pdf");
+  a.style.display="inline-block";
+  $("#status").textContent=mode==="cover"?"⚠ cover mode: text NOT truly removed":"Done.";
+  $("#go").disabled=false;
+};
+</script>
+</body>
+</html>
