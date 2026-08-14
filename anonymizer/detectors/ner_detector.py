@@ -19,6 +19,21 @@ LABEL_MAP: Dict[str, EntityType] = {
 }
 
 
+# Common form-label / field words the small models mislabel as PERSON/LOC/ORG.
+_NER_NOISE = {
+    "nom", "prénom", "prenom", "date", "montant", "moyen", "numéro", "numero",
+    "dossier", "adresse", "téléphone", "telephone", "tél", "tel", "email", "e-mail",
+    "courriel", "paiement", "naissance", "validation", "payé", "paye", "solde",
+    "name", "phone", "contact", "contacto", "credit", "card", "français", "francais",
+    "elle", "first", "last", "españa", "espagne",
+}
+
+
+def _is_noise(value: str) -> bool:
+    v = value.strip()
+    return len(v) <= 2 or v.lower() in _NER_NOISE
+
+
 class NerDetector(Detector):
     name = "ner"
 
@@ -35,6 +50,8 @@ class NerDetector(Detector):
                 start, end = self._trim(text, start, end)
                 if end <= start:
                     continue  # nothing left after trimming
+                if _is_noise(text[start:end]):
+                    continue  # drop label/short-token false positives
                 found.append(
                     Entity(
                         type=etype,
