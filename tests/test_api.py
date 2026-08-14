@@ -1,3 +1,9 @@
+import pytest
+
+pytest.importorskip("fastapi")
+pytest.importorskip("httpx")
+
+
 def _client(tmp_path, monkeypatch):
     monkeypatch.setenv("DATABASE_URL", "sqlite:///{}".format(tmp_path / "api.db"))
     from fastapi.testclient import TestClient

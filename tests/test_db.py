@@ -1,3 +1,8 @@
+import pytest
+
+pytest.importorskip("sqlalchemy")
+
+
 def test_record_and_list_job(tmp_path, monkeypatch):
     monkeypatch.setenv("DATABASE_URL", "sqlite:///{}".format(tmp_path / "t.db"))
     from anonymizer import db
