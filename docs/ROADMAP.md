@@ -44,9 +44,14 @@ interfaces, so new modalities (NER, OCR, faces) are additive.
 - MediaPipe / OpenCV face detection in scanned IDs and photos → `FaceDetector` emitting box regions.
 - `ImageRedactor`: black box / blur / placeholder over regions.
 
-### Slice 4 — Streamlit UI
-- Drag-and-drop a file; toggle entity types; choose redaction style; download the clean file.
-- Before/after preview. Thin UI layer over the existing library — no core logic in the app.
+### Slice 4 — Dockerized FastAPI + PostgreSQL (browser UI)
+- FastAPI service (chosen over Streamlit for speed/testability): `/redact`, `/audit`, `/health`,
+  static drag-and-drop UI with PDF.js before/after preview + download.
+- **PostgreSQL** stores an **audit trail (metadata only — no documents/PII)**: filename, time,
+  mode, per-type counts. GDPR / Law 09-08 relevant.
+- Runs via `docker compose up` (api + db containers). Tests use SQLite (offline) via SQLAlchemy.
+- Deliberately **not** microservices/gateway (over-engineered for this workload; possible later).
+- Spec: `docs/superpowers/specs/2026-08-14-dockerized-api-postgres-design.md`
 
 ### Slice 5 — Labeled dataset + eval + polish
 - Hand-label a small dataset (names marked per sentence). This same data serves **both**
