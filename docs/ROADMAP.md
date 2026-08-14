@@ -100,6 +100,6 @@ before any of the above. See [[ner-baseline-findings]].
   - Open finding: PII **split across a line break** (hyphenated wrap, e.g. an email breaking mid-domain) isn't reconstructed contiguously, so it's missed. Needs dehyphenation in `words_to_text_and_index`. Low frequency.
 - [ ] Slice 2c — Arabic NER (CAMeL) — install blocked on PyTorch download; code degrades gracefully
 - [ ] Slice 3 — OCR + faces
-- [ ] Slice 4 — Streamlit UI
+- [x] Slice 4 — Dockerized FastAPI + PostgreSQL + browser UI, merged to `main` (host port 8010)
 - [ ] Slice 5 — labeled dataset + baseline eval + polish
 - [ ] Slice 6 — NER Path B (fine-tune our own), compare to baseline
