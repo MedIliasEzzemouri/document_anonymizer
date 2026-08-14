@@ -61,7 +61,8 @@ def build_detectors(
     types: Optional[List[EntityType]] = None,
     use_ner: bool = False,
 ) -> List[Detector]:
-    detectors: List[Detector] = [RegexDetector(types=types)]
+    from anonymizer.detectors.label_rules import LabelDetector
+    detectors: List[Detector] = [RegexDetector(types=types), LabelDetector()]
     if use_ner:
         from anonymizer.detectors import ner_engines
         from anonymizer.detectors.ner_detector import NerDetector
