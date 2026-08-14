@@ -9,3 +9,11 @@ camel-tools
 
 # Slice 2b — native PDF read/redact
 pymupdf
+
+# Slice 4 — web API + audit DB
+fastapi
+uvicorn[standard]
+python-multipart
+sqlalchemy
+psycopg2-binary   # PostgreSQL driver (Docker runtime)
+httpx             # dev: FastAPI TestClient
