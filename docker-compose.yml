@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: anon
+      POSTGRES_PASSWORD: anon
+      POSTGRES_DB: anonymizer
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  api:
+    build: .
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql://anon:anon@db:5432/anonymizer
+    ports:
+      # Host 8010 (8000 is used by another local project); container stays 8000.
+      - "8010:8000"
+
+volumes:
+  pgdata:

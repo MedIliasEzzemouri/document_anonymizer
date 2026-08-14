@@ -1,0 +1,9 @@
+.venv
+venv
+Pdf_test
+__pycache__
+*.pyc
+.git
+.pytest_cache
+*.db
+docs
